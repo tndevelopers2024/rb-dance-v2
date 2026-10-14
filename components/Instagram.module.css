@@ -1,0 +1,84 @@
+.insta {
+  background: var(--bg);
+}
+
+.head {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.title {
+  margin-top: 16px;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.6rem, 3.6vw, 2.7rem);
+  font-weight: 420;
+  letter-spacing: -0.015em;
+}
+
+.title em {
+  color: var(--accent);
+}
+
+.title a {
+  transition: color 0.3s ease;
+}
+
+.title a:hover {
+  color: var(--accent);
+}
+
+.marquee {
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: marquee 42s linear infinite;
+}
+
+.marquee:hover .track {
+  animation-play-state: paused;
+}
+
+.marquee:focus-within .track {
+  animation-play-state: paused;
+}
+
+.cell:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -4px;
+}
+
+.strip {
+  display: flex;
+  gap: 6px;
+  padding-right: 6px;
+}
+
+.cell {
+  display: block;
+  overflow: hidden;
+  flex: 0 0 auto;
+  width: clamp(180px, 22vw, 300px);
+}
+
+.cell img {
+  width: 100%;
+  height: clamp(320px, 36vw, 480px);
+  object-fit: cover;
+  filter: saturate(0.88);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.4s ease;
+}
+
+.cell:hover img {
+  transform: scale(1.06);
+  filter: saturate(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}

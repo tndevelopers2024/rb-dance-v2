@@ -1,0 +1,51 @@
+.strip {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  color: var(--stage-ink);
+  padding: 8px 0;
+}
+
+.strip::before {
+  content: none;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(175deg,
+    color-mix(in srgb, var(--bg-raised) 72%, transparent),
+    transparent 48%,
+    color-mix(in srgb, var(--bg-raised) 32%, transparent));
+}
+
+.viewport { flex: 1; min-width: 0; overflow: hidden; }
+.track { display: flex; width: max-content; animation: travel 160s linear infinite; }
+.paused { animation-play-state: paused; }
+.group { display: flex; flex-shrink: 0; align-items: center; }
+.group > span {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-family: var(--font-serif);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+.star { margin: 0 32px; font-size: 0.625rem; color: var(--stage-accent); }
+.control {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  color: var(--stage-muted);
+  font-size: 0.75rem;
+}
+.control:focus-visible { outline: 2px solid currentColor; outline-offset: -4px; }
+@keyframes travel { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .track { animation: none; width: auto; }
+  .group { flex-wrap: wrap; gap: 16px; justify-content: center; }
+  .group[aria-hidden="true"], .control { display: none; }
+  .group > span[aria-hidden="true"] { display: none; }
+}

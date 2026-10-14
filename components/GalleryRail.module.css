@@ -1,0 +1,122 @@
+.rail {
+  background: var(--bg-raised);
+  overflow: hidden;
+}
+
+.head {
+  position: relative;
+  padding: clamp(32px, 4vw, 48px) var(--pad) 32px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.title {
+  margin-top: 18px;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  font-weight: 420;
+  letter-spacing: -0.015em;
+  line-height: 1.06;
+}
+
+.title em {
+  color: var(--accent);
+  font-weight: 380;
+}
+
+.track {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(24px, 4vw, 64px);
+  height: auto;
+  min-height: 0;
+  padding: 0 var(--pad);
+  padding-top: 0;
+  padding-bottom: 32px;
+  width: max-content;
+  will-change: transform;
+}
+
+.frame {
+  flex: 0 0 auto;
+  width: clamp(300px, 32vw, 460px);
+}
+
+.frame:nth-child(even) {
+  margin-bottom: 32px;
+}
+
+.imgWrap {
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+}
+
+.imgWrap > img {
+  width: 112%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.82);
+  transition: filter 0.5s ease;
+  will-change: transform;
+}
+
+.frame:hover .imgWrap > img {
+  filter: saturate(1);
+}
+
+.caption {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-top: 16px;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+
+.tag {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.railEnd {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 0 8vw;
+  align-self: center;
+}
+
+/* mobile: fall back to native swipe rail, no pinning */
+@media (max-width: 820px), (prefers-reduced-motion: reduce) {
+  .rail {
+    padding: 32px 0;
+  }
+
+  .head {
+    position: static;
+    padding: 0 var(--pad);
+    margin-bottom: 24px;
+  }
+
+  .track {
+    height: auto;
+    min-height: 0;
+    padding: 0 var(--pad);
+    width: auto;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .frame {
+    width: 78vw;
+    scroll-snap-align: start;
+  }
+
+  .frame:nth-child(even) {
+    margin-bottom: 0;
+  }
+}

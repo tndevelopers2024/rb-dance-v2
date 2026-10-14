@@ -1,0 +1,251 @@
+.services {
+  background: var(--bg);
+  scroll-margin-top: 96px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+
+.title {
+  margin-top: 24px;
+  font-size: clamp(3rem, 5.5vw, 5rem);
+}
+
+.title em { color: var(--accent); }
+
+.intro {
+  max-width: 32ch;
+  color: var(--ink-muted);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.introMark {
+  display: block;
+  color: var(--accent);
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 480px;
+  padding: clamp(24px, 3vw, 48px);
+  border-radius: 24px;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid var(--hairline);
+}
+
+.dance {
+  grid-column: span 7;
+  background: var(--brand-blue);
+  color: var(--stage-ink);
+  --accent: var(--stage-ink);
+  --hairline: var(--stage-hairline);
+}
+
+.classical {
+  grid-column: span 5;
+  background: var(--bg-raised);
+  color: var(--ink);
+}
+
+.fitness {
+  grid-column: span 5;
+  background: var(--brand-orange);
+  color: var(--accent-on-strong);
+  --accent: var(--accent-on-strong);
+  --hairline: color-mix(in srgb, var(--accent-on-strong) 35%, transparent);
+}
+
+.learning {
+  grid-column: span 7;
+  background: var(--stage-bg);
+  color: var(--stage-ink);
+  --accent: var(--stage-accent);
+  --hairline: var(--stage-hairline);
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.category, .number {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.number { font-variant-numeric: tabular-nums; }
+
+.content {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding-top: 112px;
+}
+
+.cardTitle { font-size: clamp(2rem, 3.4vw, 3.25rem); }
+
+.copy {
+  margin-top: 16px;
+  max-width: 43ch;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin-top: 24px;
+  list-style: none;
+}
+
+.tags li {
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+.link {
+  margin-top: 24px;
+  min-height: 48px;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+}
+
+.link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 8px;
+  border-radius: 4px;
+}
+
+.art {
+  position: absolute;
+  top: 64px;
+  right: 32px;
+  width: 160px;
+  height: 160px;
+  pointer-events: none;
+  z-index: 0;
+  transition: transform 0.6s ease;
+}
+
+.card:hover .art { transform: rotate(12deg); }
+
+.danceArt {
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle, transparent 0 16px, var(--stage-hairline) 17px 18px, transparent 19px 24px);
+  border: 1px solid var(--stage-hairline);
+}
+
+.danceArt::after {
+  content: "";
+  position: absolute;
+  inset: 56px;
+  background: var(--brand-orange);
+  border-radius: 50%;
+}
+
+.classicalArt { transform: rotate(-12deg); }
+
+.classicalArt span {
+  position: absolute;
+  inset: 24px 48px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+}
+
+.classicalArt span:nth-child(2) { transform: rotate(36deg); }
+.classicalArt span:nth-child(3) { transform: rotate(72deg); }
+.classicalArt span:nth-child(4) { transform: rotate(108deg); }
+.classicalArt span:nth-child(5) { transform: rotate(144deg); }
+
+.fitnessArt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.fitnessArt span {
+  width: 16px;
+  height: 64px;
+  border-radius: 999px;
+  background: var(--accent-on-strong);
+}
+
+.fitnessArt span:nth-child(2), .fitnessArt span:nth-child(4) { height: 112px; }
+.fitnessArt span:nth-child(3) { height: 160px; }
+
+.learningArt span {
+  position: absolute;
+  inset: 32px 0;
+  border: 1px solid var(--stage-accent);
+  border-radius: 50%;
+}
+
+.learningArt span:nth-child(2) { transform: rotate(60deg); }
+.learningArt span:nth-child(3) { transform: rotate(120deg); }
+.learningArt span:nth-child(4) {
+  inset: 72px;
+  background: var(--stage-accent);
+}
+.learningArt span:nth-child(5) { display: none; }
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.footer p { color: var(--ink-muted); font-size: 1rem; }
+
+@media (max-width: 1023px) {
+  .card { grid-column: span 6; }
+  .header { align-items: flex-start; }
+  .intro { max-width: 26ch; }
+  .art { width: 128px; height: 128px; right: 24px; }
+  .danceArt::after { inset: 48px; }
+  .fitnessArt span:nth-child(3) { height: 128px; }
+  .learningArt span:nth-child(4) { inset: 56px; }
+}
+
+@media (max-width: 767px) {
+  .header { flex-direction: column; gap: 24px; margin-bottom: 32px; }
+  .intro { max-width: 40ch; }
+  .introMark { display: none; }
+  .grid { gap: 16px; }
+  .card { grid-column: 1 / -1; min-height: 464px; }
+  .content { padding-top: 128px; }
+  .cardTitle { font-size: clamp(2rem, 8vw, 3rem); }
+  .footer { flex-direction: column; align-items: flex-start; }
+}

@@ -1,0 +1,59 @@
+.media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--stage-bg);
+}
+
+.media video,
+.media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.control {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  min-height: 48px;
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  color: var(--stage-ink);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  box-shadow: none;
+  transition: none;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.control:focus-visible {
+  outline: 2px solid var(--stage-accent);
+  outline-offset: 4px;
+}
+
+@media (forced-colors: active) {
+  .control {
+    forced-color-adjust: auto;
+    filter: none;
+    box-shadow: none;
+  }
+
+  .icon {
+    filter: none;
+  }
+}

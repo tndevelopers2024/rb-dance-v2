@@ -1,0 +1,400 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  color: var(--ink);
+}
+
+/* at the top of the page the nav floats over the hero film — keep ink light
+   until it gains its scrolled backdrop or the mobile sheet opens */
+.nav:not(.scrolled):not(:has(.sheetOpen)) {
+  --ink: var(--stage-ink);
+  --ink-muted: var(--stage-ink);
+  --hairline: var(--stage-hairline);
+}
+
+
+
+/* the pill itself lives on .inner (not .nav) so only the bar — not the
+   full-width header — resizes/floats, aceternity resizable-navbar style */
+.inner {
+  position: relative;
+  max-width: 100%;
+  margin: 16px auto 0;
+  padding: 0 var(--pad);
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 0px;
+  transition: max-width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    margin-top 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    border-radius 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.35s ease, backdrop-filter 0.35s ease,
+    box-shadow 0.4s ease, border-color 0.35s ease;
+}
+
+.scrolled .inner {
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+}
+
+/* past 100px of scroll the bar shrinks into a floating capsule —
+   aceternity's signature "resizable" move. height stays put; width,
+   shape and elevation are what animate */
+.pill .inner {
+  max-width: 860px;
+  margin-top: 14px;
+  padding: 0 24px;
+  border-radius: 999px;
+  border-color: var(--hairline);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.05);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+}
+
+.logo {
+  position: relative;
+  display: block;
+  width: 160px;
+  aspect-ratio: 4 / 1;
+  flex-shrink: 0;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.pill .logo {
+  width: 144px;
+}
+
+.logo img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: auto;
+  width: 100%;
+  object-fit: contain;
+  transform: translateY(-42%);
+}
+
+.links {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink-muted);
+}
+
+
+
+.links a {
+  position: relative;
+  z-index: 1;
+  padding: 9px 16px;
+  border-radius: 999px;
+  transition: color 0.32s cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.links a:hover,
+.linkActive {
+  color: var(--ink);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* the one solid, always-accent element in the bar — it reads the same over the
+   hero film as it does on the scrolled backdrop */
+.cta {
+  font-size: 0.62rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 6px 13px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--accent-strong);
+  color: var(--accent-on-strong);
+  transition: background 0.3s ease, transform 0.3s ease;
+  margin-left: 12px;
+  /* sits nearer the bar's right edge than the rest of the actions */
+  margin-right: -24px;
+}
+
+/* the pill only has 24px of padding to give, so it takes a smaller nudge —
+   -24px here would leave the button almost touching the capsule edge */
+.pill .cta {
+  margin-right: -10px;
+}
+
+.cta:hover {
+  background: color-mix(in srgb, var(--accent-strong) 90%, var(--bg-raised));
+  color: var(--accent-on-strong);
+  transform: translateY(-1px);
+}
+
+.cta:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 4px;
+}
+
+.burger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--ink);
+  transition: transform 0.35s ease;
+}
+
+.x1 {
+  transform: translateY(3.75px) rotate(45deg);
+}
+
+.x2 {
+  transform: translateY(-3.75px) rotate(-45deg);
+}
+
+.sheet {
+  display: none;
+}
+
+/* Page curtain behind the open flyout (apple.com globalnav-curtain) */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--bg) 40%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.32s cubic-bezier(0.4, 0, 0.6, 1) 0.08s,
+    visibility 0.32s steps(1, start) 0.08s;
+}
+
+.curtainOpen {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mega Menu Styles — flyout height is set inline from the active panel;
+   duration is distance-scaled in Nav.tsx, apple.com-style.
+   Colors are explicitly reset so the hero light-ink override never leaks in. */
+.megaMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  --ink: var(--base-ink);
+  --ink-muted: var(--base-ink-muted);
+  background: var(--bg);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: none;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: height 0.32s cubic-bezier(0.4, 0, 0.6, 1),
+    border-radius 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* In pill mode the flyout becomes a floating card attached to the pill */
+.pill .megaMenu {
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 860px;
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: none;
+}
+
+.megaMenuOpen {
+  pointer-events: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.pill .megaMenuOpen {
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.14),
+    0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.megaMenuInnerWrapper {
+  display: grid;
+  align-items: start;
+  width: 100%;
+}
+
+.megaMenuInner {
+  grid-area: 1 / 1;
+  display: flex;
+  justify-content: flex-start;
+  gap: 88px;
+  max-width: var(--maxw);
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px var(--pad) 56px;
+  pointer-events: none;
+}
+
+/* In pill mode constrain content to fit the card */
+.pill .megaMenuInner {
+  max-width: 100%;
+}
+
+.megaMenuInnerActive {
+  pointer-events: auto;
+}
+
+.megaMenuColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.megaMenuTitle {
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.33;
+  color: var(--ink-muted);
+  margin: 0 0 20px;
+}
+
+.megaMenuList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.megaMenuList li {
+  margin-bottom: 8px;
+}
+
+.megaMenuLink {
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.33;
+  color: var(--ink);
+  transition: color 0.32s cubic-bezier(0.4, 0, 0.6, 1);
+  display: block;
+}
+
+/* First column gets apple.com's "elevated" treatment: 24px semibold */
+.megaMenuColumnElevated .megaMenuList li {
+  margin-bottom: 10px;
+}
+
+.megaMenuColumnElevated .megaMenuLink {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.17;
+  letter-spacing: 0.009em;
+}
+
+.megaMenuLink:hover {
+  color: var(--ink-muted);
+}
+
+/* Items rest hidden at -4px; they fade/slide in when their panel activates
+   (headers at 0.08s, links at 0.12s — apple.com's flyout choreography) */
+.megaMenuTitle,
+.megaMenuList li {
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.24s ease, transform 0.24s ease;
+}
+
+.megaMenuInnerActive .megaMenuTitle {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.32s ease 0.08s, transform 0.32s ease 0.08s;
+}
+
+.megaMenuInnerActive .megaMenuList li {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.32s ease 0.12s, transform 0.32s ease 0.12s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .megaMenu,
+  .curtain,
+  .megaMenuTitle,
+  .megaMenuList li {
+    transition-duration: 0.01s;
+    transition-delay: 0s;
+  }
+}
+
+@media (max-width: 820px) {
+
+  .links,
+  .cta {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+  }
+
+  .sheet {
+    position: fixed;
+    inset: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 var(--pad);
+    background: color-mix(in srgb, var(--bg) 96%, transparent);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+  }
+
+  .sheetOpen {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .sheetLink,
+  .sheetLinkIn {
+    font-size: clamp(2rem, 8vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .sheetLinkIn {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

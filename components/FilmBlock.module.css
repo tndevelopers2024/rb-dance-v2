@@ -1,0 +1,92 @@
+.film {
+  background: var(--bg);
+  padding: clamp(48px, 8vh, 110px) 0;
+}
+
+.mediaWrap {
+  position: relative;
+  height: 92svh;
+  min-height: 560px;
+  overflow: hidden;
+  will-change: transform, border-radius;
+}
+
+.mediaWrap img,
+.mediaWrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.85);
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(var(--stage-rgb), 0.15) 0%,
+    rgba(var(--stage-rgb), 0.65) 100%
+  );
+}
+
+.overlayContent {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: clamp(40px, 6vw, 80px);
+  /* always sits over the darkened still — keep text readable over the media */
+  --ink: var(--stage-ink);
+  --ink-muted: var(--stage-muted);
+  --hairline: var(--stage-hairline);
+  --accent: var(--stage-accent);
+  color: var(--ink);
+}
+
+.overlayContent > * {
+  will-change: transform, opacity;
+}
+
+.title {
+  margin-top: 18px;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(2.4rem, 5.8vw, 5rem);
+  font-weight: 420;
+  letter-spacing: -0.015em;
+  line-height: 1.04;
+  max-width: 18ch;
+}
+
+.title em {
+  color: var(--accent);
+  font-weight: 380;
+}
+
+.playBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 30px;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.playIcon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--hairline);
+  font-size: 0.7rem;
+  padding-left: 3px;
+  transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease,
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.playBtn:hover .playIcon {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--stage-bg);
+  transform: scale(1.08);
+}

@@ -1,0 +1,52 @@
+.stats {
+  background: var(--bg);
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px 32px;
+}
+
+@media (min-width: 760px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.item {
+  will-change: transform, opacity;
+  text-align: center;
+  border-left: 1px solid var(--hairline);
+}
+
+.item:first-child {
+  border-left: none;
+}
+
+.value {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(2.8rem, 5.5vw, 4.6rem);
+  font-weight: 380;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.num {
+  /* Class needed for styles.num to be generated and targeted by GSAP */
+}
+.suffix, .prefix {
+  color: var(--accent);
+}
+
+.label {
+  margin-top: 14px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}

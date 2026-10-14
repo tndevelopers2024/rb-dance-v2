@@ -1,0 +1,204 @@
+.veil {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 24px;
+  background: var(--bg-raised);
+  color: var(--ink);
+  pointer-events: none;
+  animation: unveil 0.65s cubic-bezier(0.76, 0, 0.24, 1) 4.35s forwards;
+}
+
+.topline, .bottomline {
+  position: absolute;
+  left: var(--pad);
+  right: var(--pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  color: var(--ink-muted);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.topline { top: 32px; justify-content: flex-end; }
+.bottomline { bottom: 32px; }
+.signature {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.backdropWord {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  font-family: var(--font-serif);
+  font-size: clamp(12rem, 36vw, 40rem);
+  font-style: italic;
+  letter-spacing: -0.08em;
+  line-height: 1;
+  color: color-mix(in srgb, var(--ink) 5%, var(--bg-raised));
+  user-select: none;
+}
+
+.stage {
+  position: relative;
+  width: min(100%, 560px);
+  perspective: 1000px;
+  animation: arrive 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.glass {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 32px;
+  border: 1px solid color-mix(in srgb, var(--bg-raised) 92%, transparent);
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--bg-raised) 82%, transparent),
+    color-mix(in srgb, var(--bg-raised) 36%, transparent) 48%,
+    color-mix(in srgb, var(--bg-raised) 70%, transparent));
+  -webkit-backdrop-filter: blur(20px) saturate(120%);
+  backdrop-filter: blur(20px) saturate(120%);
+  box-shadow:
+    inset 0 2px 2px var(--bg-raised),
+    inset 0 -2px 4px color-mix(in srgb, var(--ink) 8%, transparent),
+    0 32px 64px -24px color-mix(in srgb, var(--ink) 20%, transparent),
+    0 4px 16px color-mix(in srgb, var(--ink) 5%, transparent);
+}
+.glass::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  z-index: -1;
+  border: 1px solid color-mix(in srgb, var(--bg-raised) 78%, transparent);
+  border-radius: 24px;
+}
+.reflection {
+  position: absolute;
+  inset: -50%;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 36%, color-mix(in srgb, var(--bg-raised) 90%, transparent) 48%, transparent 60%);
+  animation: reflection 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(32px, 5vh, 48px) 24px;
+  text-align: center;
+}
+.seal {
+  display: grid;
+  grid-auto-flow: column;
+  place-content: center;
+  width: 80px;
+  height: 80px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 2.5rem;
+  letter-spacing: -0.08em;
+  line-height: 1;
+}
+.seal span { color: var(--accent); }
+.logoFrame {
+  position: relative;
+  width: clamp(224px, 30vw, 280px);
+  max-width: 100%;
+  aspect-ratio: 4 / 1;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+.logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  transform: translateY(-42%);
+}
+.subtitle {
+  margin-top: 32px;
+  color: var(--ink-muted);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.mark {
+  margin-top: 16px;
+  font-size: clamp(2.25rem, 5.5vw, 3.75rem);
+  font-weight: 420;
+  letter-spacing: -0.045em;
+  line-height: 1.15;
+}
+.mark em { color: var(--accent); white-space: nowrap; }
+.studio {
+  margin-top: 8px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.loading { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 16px; }
+.rule { width: 128px; height: 2px; overflow: hidden; border-radius: 999px; background: var(--hairline); }
+.rule::after {
+  content: "";
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: left;
+  animation: fill 1.3s cubic-bezier(0.65, 0, 0.35, 1) 0.15s both;
+}
+.loadingLabel { color: var(--ink-muted); font-size: 0.625rem; letter-spacing: 0.08em; }
+.ribbon {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border: 16px solid color-mix(in srgb, var(--bg-raised) 55%, transparent);
+  border-radius: 40%;
+  background: color-mix(in srgb, var(--bg-raised) 4%, transparent);
+  box-shadow: inset 2px 2px 4px var(--bg-raised), inset -2px -2px 8px color-mix(in srgb, var(--ink) 12%, transparent), 2px 8px 24px color-mix(in srgb, var(--ink) 9%, transparent);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.ribbonBack { top: -48px; right: -48px; transform: rotate(-24deg); animation: driftBack 2.3s ease-out both; }
+.ribbonFront { bottom: -32px; left: -48px; width: 112px; height: 112px; transform: rotate(24deg); animation: driftFront 2.3s ease-out both; }
+
+@keyframes arrive {
+  from { opacity: 0; transform: translateY(24px) rotateX(8deg) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) rotateX(0) scale(1); }
+}
+@keyframes reflection { from { transform: translateX(-45%); } to { transform: translateX(45%); } }
+@keyframes driftBack { from { transform: translateY(16px) rotate(-36deg); } to { transform: translateY(0) rotate(-16deg); } }
+@keyframes driftFront { from { transform: translateY(-8px) rotate(36deg); } to { transform: translateY(8px) rotate(16deg); } }
+@keyframes fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes unveil { to { opacity: 0; visibility: hidden; transform: translateY(-16px); } }
+
+@media (max-width: 560px) {
+  .topline, .bottomline { font-size: 0.5625rem; gap: 16px; letter-spacing: 0.08em; }
+  .signature { font-size: 0.875rem; }
+  .ribbonBack { right: -24px; width: 112px; height: 112px; }
+  .ribbonFront { left: -24px; width: 80px; height: 80px; border-width: 8px; }
+}
+@media (max-height: 600px) {
+  .seal { width: 64px; height: 64px; font-size: 2rem; }
+  .content { padding: 24px; }
+  .subtitle, .loading { margin-top: 16px; }
+  .topline { top: 16px; }
+  .bottomline { bottom: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .veil { display: none; }
+  .veil, .stage, .reflection, .ribbon, .rule::after { animation: none; }
+}
